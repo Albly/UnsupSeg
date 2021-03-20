@@ -196,3 +196,5 @@ def max_min_norm(x):
 
 def line():
     print(90 * "-")
+
+    

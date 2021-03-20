@@ -9,14 +9,14 @@ import os
 from os.path import join, basename
 from boltons.fileutils import iter_find_files
 import soundfile as sf
-import librosa
+# import librosa
 import pickle
 from multiprocessing import Pool
 import random
 import torchaudio
 import math
 from torchaudio.datasets import LIBRISPEECH
-
+import textgrid
 
 def collate_fn_padd(batch):
     """collate_fn_padd
@@ -25,6 +25,7 @@ def collate_fn_padd(batch):
     :param batch:
     """
     # get sequence lengths
+    t = 0
     spects = [t[0] for t in batch]
     segs = [t[1] for t in batch]
     labels = [t[2] for t in batch]
@@ -60,29 +61,88 @@ class WavPhnDataset(Dataset):
     @staticmethod
     def get_datasets(path):
         raise NotImplementedError
-
+        
     def process_file(self, wav_path):
-        phn_path = wav_path.replace("wav", "phn")
-
+        
+        if "timit" in wav_path:    
+            phn_path = wav_path.replace("wav", "PHN")
+        if "buckeye" in wav_path:
+            phn_path = wav_path.replace("wav", "phones")
+        elif "arabic" in wav_path:
+            phn_path = wav_path.replace("wav", "TextGrid")
+            
         # load audio
         audio, sr = torchaudio.load(wav_path)
         audio = audio[0]
         audio_len = len(audio)
         spectral_len = spectral_size(audio_len)
         len_ratio = (audio_len / spectral_len)
-
+            
         # load labels -- segmentation and phonemes
-        with open(phn_path, "r") as f:
-            lines = f.readlines()
-            lines = list(map(lambda line: line.split(" "), lines))
+        if ("timit" in wav_path) or ("buckeye" in wav_path):
+            with open(phn_path, "r") as f:
+                if "timit" in wav_path:
+#                     print('TIMIT DATASET IS PROCESSING')
+                    lines = f.readlines()
+                    lines = list(map(lambda line: line.split(" "), lines))
 
-            # get segment times
-            times = torch.FloatTensor(list(map(lambda line: int(int(line[1]) / len_ratio), lines)))[:-1]  # don't count end time as boundary
+                    # get segment times
+                    times = torch.FloatTensor(list(map(lambda line: int(int(line[1]) / len_ratio), lines)))[:-1]  # don't count end time as boundary
 
-            # get phonemes in each segment (for K times there should be K+1 phonemes)
-            phonemes = list(map(lambda line: line[2].strip(), lines))
+                    # get phonemes in each segment (for K times there should be K+1 phonemes)
+                    phonemes = list(map(lambda line: line[2].strip(), lines))
 
-        return audio, times.tolist(), phonemes, wav_path
+                elif "buckeye" in wav_path:
+#                     print('BUCKEYE DATASET IS PROCESSING')
+                    lines = f.readlines()[9:] # start reading from 9th row
+                    lines = list(map(lambda line: line.split(" "), lines))
+    #                 for i in lines:
+    #                     print(i)
+
+                    prev = 0
+                    lines1 = []
+                    for i,line in enumerate(lines[:]):
+                        a = line.count('')
+
+                        for i in range(a):
+                            line.remove('')
+                        lines1.append([prev,line[0],line[2]])
+                        prev = line[0]
+
+    #                 for i in lines1:
+    #                     print(i)
+                    times = torch.FloatTensor(list(map(lambda line: int(int(float(line[1])*16000) / len_ratio), lines1)))[:-1]
+                    phonemes = list(map(lambda line: line[2].strip(), lines1))
+    #                 for i in times:
+    #                     print(i)
+        
+    
+        if "arabic" in wav_path:
+#             print('ARABIC DATASET IS PROCESSING')
+            tg = textgrid.TextGrid.fromFile(phn_path)
+            phonems = tg[0]
+            assert phonems.name == 'phones'
+            lines1 = []
+            for phonem in phonems:
+                xmin = phonem.minTime
+                xmax = phonem.maxTime
+                text = phonem.mark
+
+                lines1.append([xmin, xmax, text])
+            
+            times = torch.FloatTensor(list(map(lambda line: int(int(float(line[1])*16000) / len_ratio), lines1)))[:-1]
+            phonemes = list(map(lambda line: line[2].strip(), lines1))
+    
+    
+    
+        if "timit" in wav_path:
+            return audio, times.tolist(), phonemes, wav_path
+        elif "buckeye" in wav_path:
+            timlen = len(times)
+            n = 12
+            return audio[:int(audio_len/n)], times[:int(timlen/n)].tolist(), phonemes[:int(timlen/n)+1], wav_path
+        elif "arabic" in wav_path:
+            return audio, times.tolist(), phonemes, wav_path
 
     def __getitem__(self, idx):
         audio, seg, phonemes, fname = self.process_file(self.data[idx])
@@ -98,14 +158,16 @@ class TrainTestDataset(WavPhnDataset):
 
     @staticmethod
     def get_datasets(path, val_ratio=0.1):
+        
         train_dataset = TrainTestDataset(join(path, 'train'))
         test_dataset  = TrainTestDataset(join(path, 'test'))
-
+        
         train_len   = len(train_dataset)
         train_split = int(train_len * (1 - val_ratio))
+        
         val_split   = train_len - train_split
         train_dataset, val_dataset = torch.utils.data.random_split(train_dataset, [train_split, val_split])
-
+        
         train_dataset.path = join(path, 'train')
         val_dataset.path = join(path, 'train')
 

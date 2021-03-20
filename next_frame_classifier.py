@@ -1,4 +1,4 @@
-
+import matplotlib.pyplot as plt
 import numpy as np
 import torch
 import torch.nn as nn
@@ -7,12 +7,16 @@ import hydra
 from utils import LambdaLayer, PrintShapeLayer, length_to_mask
 from dataloader import TrainTestDataset
 from collections import defaultdict
+from utils import (detect_peaks, max_min_norm, replicate_first_k_frames)
 
+
+import h5py # for data extraction
 
 class NextFrameClassifier(nn.Module):
-    def __init__(self, hp):
+    def __init__(self, hp, writefile = False):
         super(NextFrameClassifier, self).__init__()
         self.hp = hp
+        self.writefile = writefile
 
         Z_DIM = hp.z_dim
         LS = hp.latent_dim if hp.latent_dim != 0 else Z_DIM
@@ -59,20 +63,53 @@ class NextFrameClassifier(nn.Module):
         self.pred_steps = list(range(1 + self.hp.pred_offset, 1 + self.hp.pred_offset + self.hp.pred_steps))
         print(f"prediction steps: {self.pred_steps}")
 
-    def score(self, f, b):
-        return F.cosine_similarity(f, b, dim=-1) * self.hp.cosine_coef
+# 1st loss - function
+#     def score(self, f, b):
+#         return F.cosine_similarity(f, b, dim=-1) * self.hp.cosine_coef
     
+    def score(self, f, b):
+        c = 1/(F.cosine_similarity(f, b, dim=-1)+0.01)
+        return torch.sign(c)*torch.exp(-c**4+1)
+    
+    # get array from cpu or convert to numpy
+    def get_array(self,arr,device):
+        if str(device) == 'cuda:0':
+            return arr.cpu().detach().numpy()
+        elif str(device) == 'cpu':
+            return arr.detach().numpy()
+        
     def forward(self, spect):
+        # get device type
         device = spect.device
-
+        print(device)
+        
+        # input - batch of audio normalized by the longest
+        # spect - torch.Size([batch size, samples])
         # wav => latent z
         z = self.enc(spect.unsqueeze(1))
         
+        # save "spectrograms"
+#         with h5py.File('Spectrum.hdf5', 'a') as f:
+#             length = len(f.keys())
+#             for i in range(z.shape[0]):
+#                 f.create_dataset('tenzor_'+str(i + length), data = z[i,:,:].cpu())
+#             f.close()
+        
+        # if cpu => we test data on a single file
+        if self.writefile == True:
+            with h5py.File('Phonemas.hdf5', 'a') as f:
+                length = len(f.keys())
+                for i in range(z.shape[0]):
+                    f.create_dataset('phoneme_'+str(i + length), data = self.get_array(z[i,:,:].T,device))
+                f.close()
+
+        
         preds = defaultdict(list)
         for i, t in enumerate(self.pred_steps):  # predict for steps 1...t
+            
             pos_pred = self.score(z[:, :-t], z[:, t:])  # score for positive frame
             preds[t].append(pos_pred)
-
+            
             for _ in range(self.hp.n_negatives):
                 if self.training:
                     time_reorder = torch.randperm(pos_pred.shape[1])
@@ -85,7 +122,7 @@ class NextFrameClassifier(nn.Module):
                     
                 neg_pred = self.score(z[:, :-t], z[batch_reorder][: , time_reorder])  # score for negative random frame
                 preds[t].append(neg_pred)
-            
+    
         return preds
 
     def loss(self, preds, lengths):

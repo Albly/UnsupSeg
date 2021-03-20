@@ -20,10 +20,12 @@ from utils import (PrecisionRecallMetric, StatsMeter,
                    detect_peaks, line, max_min_norm, replicate_first_k_frames)
 
 
+
 class Solver(LightningModule):
-    def __init__(self, hparams):
+    def __init__(self, hparams, writefile = False):
         super(Solver, self).__init__()
         hp = hparams
+        self.writefile = writefile
         self.hp = hp
         self.hparams = hp
         self.peak_detection_params = defaultdict(lambda: {
@@ -52,11 +54,32 @@ class Solver(LightningModule):
         self.build_model()
 
     def prepare_data(self):
-        # setup training set
+        
+        # load TIMIT dataset
         if "timit" in self.hp.data:
             train, val, test = TrainTestDataset.get_datasets(path=self.hp.timit_path)
+            line()
+            print("TIMIT DATASET LOADED - OK:")
+            line()
+            print(len(train),len(val),len(test))
+        
+        # load BUCKEYE dataset
         elif "buckeye" in self.hp.data:
             train, val, test = TrainValTestDataset.get_datasets(path=self.hp.buckeye_path, percent=self.hp.buckeye_percent)
+            line()
+            print("BUCKEYE DATASET LOADED - OK:")
+            line()
+            print(len(train),len(val),len(test))
+        
+        # load ARABIC dataset
+        elif "arabic" in self.hp.data:
+            train, val, test = TrainTestDataset.get_datasets(path=self.hp.arabic_path)
+            line()
+            print("ARABIC DATASET LOADED - OK:")
+            line()
+            print(len(train),len(val),len(test))
+            
+            
         else:
             raise Exception("no such training data!")
 
@@ -74,9 +97,9 @@ class Solver(LightningModule):
         
         line()
         print("DATA:")
-        print(f"train: {self.train_dataset.path} ({len(self.train_dataset)})")
-        print(f"valid: {self.valid_dataset.path} ({len(self.valid_dataset)})")
-        print(f"test: {self.test_dataset.path} ({len(self.test_dataset)})")
+        print(f"train: {self.train_dataset.path} {len(self.train_dataset)}")
+        print(f"valid: {self.valid_dataset.path} {len(self.valid_dataset)}")
+        print(f"test: {self.test_dataset.path} {len(self.test_dataset)}")
         line()
             
 
@@ -109,7 +132,7 @@ class Solver(LightningModule):
 
     def build_model(self):
         print("MODEL:")
-        self.NFC = NextFrameClassifier(self.hp)
+        self.NFC = NextFrameClassifier(self.hp, self.writefile)
         line()
 
     def forward(self, data_batch, batch_i, mode):
