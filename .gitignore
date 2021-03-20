@@ -1,3 +1,4 @@
 /data/**
 /Test_results/**
 /Trained/**
+/.ipynb_checkpoints/**
