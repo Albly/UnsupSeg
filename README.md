@@ -17,8 +17,16 @@ conda activate unsup_seg
 
 ### Data preperation
 
+link to datasets
+
 ### Configuration
+
+### train / test/ val data structure
 
 ### Train + Test
 
+how to start train and test
+
 ### Test on a single audio file
+
+how to start test on a single audio file
