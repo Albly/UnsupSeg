@@ -2,3 +2,4 @@
 /Test_results/**
 /Trained/**
 /.ipynb_checkpoints/**
+/wandb/**

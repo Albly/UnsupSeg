@@ -4,9 +4,9 @@ hydra:
 #     dir: data/runs/unsupervised_segmentor/${now:%Y-%m-%d_%H-%M-%S}-${exp_name}
 
 # DATA
-libri_path: data/felix/datasets/librispeech
-buckeye_path: data/felix/datasets/buckeye
-timit_path: data/felix/datasets/timit
+libri_path: data/datasets/librispeech
+buckeye_path: data/datasets/buckeye
+timit_path: data/datasets/timit_big
 arabic_path: data/felix/datasets/arabic
 libri_subset: train-clean-100
 libri_percent: 1.0
@@ -29,18 +29,15 @@ pred_steps: 1  # number of future prediction steps
 pred_offset: 0  # offset of future prediction steps
 batch_shuffle: false  # if 'false' negative samples will be from the same utterance, if 'true' may be from different utterances
 latent_dim: 0  # latent dimension of encoder
-n_negatives: 3  # number of negative samples for contrastive loss 
+n_negatives: 3  # number of negative samples for contrastive loss
 
 # MISC
 gpus: 1 
 tag: default
-# exp_name: default
-exp_name: stas_eaxps
-
+exp_name: default
 project: unsupervised_segmentor
-# ckpt: /home/stas/ML_project/pretrained_models/buckeye_pretrained.ckpt
-ckpt: /home/stas/ML_project/Trained/epoch=48.ckpt
-# ckpt: null
+# ckpt: /home/stas/ML_project/Trained/epoch=48.ckpt
+ckpt: /home/alex/mlCourse/project/epoch=37.ckpt
 dev_run: false  # fast debug run
 val_check_interval: 0.2  # how often a validation epoch is run
 overfit_pct: 1
@@ -54,7 +51,7 @@ momentum: 0.9
 lr: 0.0001
 lr_anneal_gamma: 1.0
 lr_anneal_step: 1000
-epochs: 1
+epochs: 50
 grad_clip: 0.5
 batch_size: 8
 
