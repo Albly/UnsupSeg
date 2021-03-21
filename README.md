@@ -22,8 +22,8 @@ link to datasets
 ### Configuration
 
 ### Train / test / validation data structure
-  In the file config.yaml specify the directories for the location of datasets.
-  For each datased folder should look as follows:
+In the file config.yaml specify the directories for the location of datasets.
+For each datased folder should look as follows:
 
   timit_directory
   │
