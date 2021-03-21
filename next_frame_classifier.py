@@ -4,7 +4,8 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 import hydra
-from utils import LambdaLayer, PrintShapeLayer, length_to_mask
+import torchaudio
+from utils import LambdaLayer, PrintShapeLayer, length_to_mask, SumAlong
 from dataloader import TrainTestDataset
 from collections import defaultdict
 from utils import (detect_peaks, max_min_norm, replicate_first_k_frames)
@@ -17,12 +18,16 @@ class NextFrameClassifier(nn.Module):
         super(NextFrameClassifier, self).__init__()
         self.hp = hp
         self.writefile = writefile
-
         Z_DIM = hp.z_dim
         LS = hp.latent_dim if hp.latent_dim != 0 else Z_DIM
 
         self.enc = nn.Sequential(
-            nn.Conv1d(1, LS, kernel_size=10, stride=5, padding=0, bias=False),
+            # Calculating specgram for input audio samples
+            #torchaudio.transforms.Spectrogram(n_fft=50, win_length=50),
+            # perform summation alogng frequency axis
+            #SumAlong(dim= 2),
+            # CNN
+            nn.Conv1d(1, LS, kernel_size=10, stride=5, paddingf=0, bias=False),
             nn.BatchNorm1d(LS),
             nn.LeakyReLU(),
             nn.Conv1d(LS, LS, kernel_size=8, stride=4, padding=0, bias=False),

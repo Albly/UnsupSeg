@@ -19,6 +19,15 @@ class LambdaLayer(nn.Module):
     def forward(self, x):
         return self.lambd(x)
 
+# Layer that sums along defined axis
+class SumAlong(nn.Module):
+    def __init__(self, dim):
+        super(SumAlong, self).__init__()
+        self.dim = dim
+    
+    def forward(self, X):
+        return X.sum(dim = self.dim)
+
 
 class PrintShapeLayer(nn.Module):
     def __init__(self):
