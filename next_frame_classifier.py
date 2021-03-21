@@ -18,11 +18,16 @@ class NextFrameClassifier(nn.Module):
         super(NextFrameClassifier, self).__init__()
         self.hp = hp
         self.writefile = writefile
+
+        #Learnable parameters (TEST 2)
+        #self.w = nn.Parameter(torch.tensor([1.0], requires_grad= True).to('cuda'))
+        #self.b = nn.Parameter(torch.tensor([0.0], requires_grad= True).to('cuda'))
+
         Z_DIM = hp.z_dim
         LS = hp.latent_dim if hp.latent_dim != 0 else Z_DIM
 
         self.enc = nn.Sequential(
-            # Calculating specgram for input audio samples
+            # Calculating specgram for input audio samples (TEST 3)
             #torchaudio.transforms.Spectrogram(n_fft=50, win_length=50),
             # perform summation alogng frequency axis
             #SumAlong(dim= 2),

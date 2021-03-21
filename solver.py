@@ -171,6 +171,10 @@ class Solver(LightningModule):
         epoch = self.current_epoch + 1
         metrics['epoch'] = epoch
         metrics['current_lr'] = self.opt.param_groups[0]['lr']
+        # Adding lernable params to wandb
+        #metrics['w_multiplier'] = self.NFC.w.cpu().item()
+        #metrics['b_bias'] = self.NFC.b.cpu().item()
+
 
         line()
         for pred_type in self.pr.keys():
