@@ -21,7 +21,23 @@ link to datasets
 
 ### Configuration
 
-### train / test/ val data structure
+### Train / test / validation data structure
+  In the file config.yaml specify the directories for the location of datasets.
+  For each datased folder should look as follows:
+
+  timit_directory
+  │
+  └───val
+  │   │   X.wav
+  │   └─  X.phn
+  │
+  └───test
+  │   │   Y.wav
+  │   └─  Y.phn
+  │
+  └───train
+      │   Z.wav
+      └─  Z.phn
 
 ### Train + Test
 
