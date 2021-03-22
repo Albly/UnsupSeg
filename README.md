@@ -6,6 +6,8 @@ The original model's performance was tested on an out-of-domain test set. Furthe
 
 Phonemes clusterization was also implemented.
 
+The files with the code were taken from the author's github and some of them were changed for our tasks.
+
 ## Main Contributions
 The main contributions include:
 1. We replicated the original proposed model on the TIMIT dataset and profiled the performace.
@@ -14,6 +16,20 @@ The main contributions include:
 4. We show that the model's performance is improved by applying a windowed Fast Fourier Transform over the audio samples. 
 5. We performed unique clusterization of the phonemes on the TIMIT dataset.
 
+## Files description
+Experiments_results.ipynb - consists of experiments results (train/test metrics, their averaging and plotting)
+Report.ipynb - consists of subblocks for different tasks:
+    1.Test pretrained model on a single audio file from test data set
+    2.Train model on a train data set
+    3.Dataloaders testing (for TIMIT, ArabicSpeech and Buckeye datasets)
+    4.Test data saving (for conveinient following processing, HDF5 files):
+        from network: spectral representationsof audio, scores, predicted boundaries of phonemes
+        from test data set: real boundaries of phonemes, phonemes characters
+    5.Data reading from written files
+    6.Plotting example:real boundaries of phonemes,spectral representationsof audio, scores, predicted boundaries of phonemes
+    7.TIMIT data set parser
+    8.Algorithm for outliers detecting
+    
 # Datasets description
 ## TIMIT
 
