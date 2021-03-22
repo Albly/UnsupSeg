@@ -18,6 +18,7 @@ The main contributions include:
 
 ## Files description
 Experiments_results.ipynb - consists of experiments results (train/test metrics, their averaging and plotting)
+
 Report.ipynb - consists of subblocks for different tasks:
 1. Test pretrained model on a single audio file from test data set
 2. Train model on a train data set
@@ -29,6 +30,17 @@ Report.ipynb - consists of subblocks for different tasks:
 6. Plotting example:real boundaries of phonemes,spectral representationsof audio, scores, predicted boundaries of phonemes
 7. TIMIT data set parser
 8. Algorithm for outliers detecting
+
+config.yaml - contains model hyperparameters and other parameters like paths to train/test folders etc.
+
+dataloader.py - is responsible for data reading from datasets in appropriate format
+
+predict.py - to make prediction on a single audio file
+
+solver.py - 
+
+utils.py - 
+
 
 # Datasets description
 ## TIMIT
