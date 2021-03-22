@@ -1,19 +1,18 @@
-# UnsupSeg
 # Self-Supervised Contrastive Learning for Unsupervised Phoneme Segmentation. ML course project.
 ## General Description
 This repository is an unofficial `Python` replication and implementation of the paper ["Self-Supervised Con-trastive Learning for Unsupervised Phoneme Seg-mentation’(Kreuk et al., 2020)](https://arxiv.org/abs/2007.13465). 
 
-The original model's performance was tested on an out-of-domain test set. Furthermore, modifications and improvements to the loss original function and model architecture were implemented which led to results that are comparable and, in some cases, better that those from the source paper.
+The original model's performance was tested on an out-of-domain test set. Furthermore, modifications and improvements to the original loss function and model architecture were implemented which led to results that are comparable and, in some cases, better that those from the source paper.
 
-phonemes clusterization of  was also implemented.
+Phonemes clusterization was also implemented.
 
 ## Main Contributions
 The main contributions include:
 1. We replicated the original proposed model on the TIMIT dataset and profiled the performace.
 2. We analysed the TIMIT-trained model's performance on 'Arabic Speech Corpus', which is an out-of-domain dataset. 
-3. We improved the performance of the model by experimenting with different loss-functions
-4. We show that the model's performance is improved by applying a windowed Fast Fourier Transform over the audio samples 
-5. We performed unique clusterization of the phonemes on the TIMIT dataset
+3. We improved the performance of the model by experimenting with different loss-functions.
+4. We show that the model's performance is improved by applying a windowed Fast Fourier Transform over the audio samples. 
+5. We performed unique clusterization of the phonemes on the TIMIT dataset.
 
 # Datasets description
 ## TIMIT
@@ -25,7 +24,9 @@ It has standard train/test split (2 folders: TRAIN, TEST)
 Files: 4158 - training, 462 - validation, 1680 - testing.
 For project audio data (.wav) and phonemes data (.PHN) is required.
 Each .PHN file contains start sample, end sample of phoneme and phoneme symbols.
-Example: 9640 11240 sh, where 9640-start,11240-end,sh-phoneme
+
+Example: 9640 11240 sh, where 9640 - start,11240 - end,sh - phoneme
+
 To process original dataset and extract (.wav) and (.PHN) files into their respective train-test folders, a processing script was written (see `big_timit_parser()` in `Report.ipynb`).
 In the algorithm to process files, initial dataloader and code processing function [written by the original paper authors](https://github.com/felixkreuk/UnsupSeg) was used.
 
@@ -77,10 +78,10 @@ timit_path /path/to/timit/timit
 ### Train / test / validation data structure
 In the file config.yaml specify the directories for the location of datasets.
 For each datased folder should look as follows:
-
-  timit_directory
-  │
-  └───val
+```
+timit_directory
+│
+ └───val
   │   │   X.wav
   │   └─  X.phn
   │
@@ -91,7 +92,9 @@ For each datased folder should look as follows:
   └───train
       │   Z.wav
       └─  Z.phn
-
+```
+# DATA
+timit_path /path/to/timit/timit
 ### Train + Test
 
 how to start train and test
