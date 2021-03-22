@@ -19,17 +19,18 @@ The main contributions include:
 ## Files description
 Experiments_results.ipynb - consists of experiments results (train/test metrics, their averaging and plotting)
 Report.ipynb - consists of subblocks for different tasks:
+```
     1.Test pretrained model on a single audio file from test data set
     2.Train model on a train data set
     3.Dataloaders testing (for TIMIT, ArabicSpeech and Buckeye datasets)
     4.Test data saving (for conveinient following processing, HDF5 files):
-        from network: spectral representationsof audio, scores, predicted boundaries of phonemes
-        from test data set: real boundaries of phonemes, phonemes characters
+        4.1.from network: spectral representationsof audio, scores, predicted boundaries of phonemes
+        4.2.from test data set: real boundaries of phonemes, phonemes characters
     5.Data reading from written files
     6.Plotting example:real boundaries of phonemes,spectral representationsof audio, scores, predicted boundaries of phonemes
     7.TIMIT data set parser
     8.Algorithm for outliers detecting
-    
+```
 # Datasets description
 ## TIMIT
 
