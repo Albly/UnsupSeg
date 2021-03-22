@@ -1,4 +1,4 @@
-# Self-Supervised Contrastive Learning for Unsupervised Phoneme Segmentation. ML course project.
+# Self-Supervised Contrastive Learning for Unsupervised Phoneme Segmentation. ML course project, Skoltech.
 ## General Description
 This repository is an unofficial `Python` replication and implementation of the paper ["Self-Supervised Con-trastive Learning for Unsupervised Phoneme Seg-mentation’(Kreuk et al., 2020)](https://arxiv.org/abs/2007.13465). 
 
