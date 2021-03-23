@@ -1,4 +1,6 @@
-/data/**
+/data/datasets/arabic/**
+/data/datasets/buckeye/**
+/data/datasets/timit_big/**
 /Test_results/**
 /Trained/**
 /.ipynb_checkpoints/**
