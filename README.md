@@ -79,6 +79,7 @@ cd UnsupSeg
 ```
 # Download data folder
 https://drive.google.com/file/d/17jcRiGfNwzqUcY9c-VmutNa2LrO4PBlf/view?usp=sharing
+This folder contains 2 data sets and hdf5 files written on the TIMIT data set
 
 ### Setup environment
 ```
@@ -86,7 +87,7 @@ conda create --name unsup_seg --file requirements.txt
 conda activate unsup_seg
 conda install -c conda-forge jupyterlab
 ```
-### Data preperation
+### Data preperation (better to use prepared folder 'data')
 This example shows how to prepare the TIMIT dataset for training. It can be adopted for other datasets as well.
 1. Download the TIMIT dataset from https://data.deepai.org/timit.zip
 2. Extract the data into `/other/timit_big/data`
@@ -112,7 +113,17 @@ timit_path /path/to/timit/timit
 In the file config.yaml specify the directories for the location of datasets.
 For each datased folder should look as follows:
 ```
-timit_directory
+UndupSeg
+│
+│
+data + intermediate_data + utils.py, solver.py, predict.py, dataloader.py, config.yaml, Report.ipynb,Experiments_results.ipynb
+│
+│
+datasets
+│
+│
+timit (same for Arabic Speech Corpus: arabic)
+│
 │
  └───val
   │   │   X.wav
@@ -126,6 +137,7 @@ timit_directory
       │   Z.wav
       └─  Z.phn
 ```
+
 # DATA
 timit_path /path/to/timit/timit
 ### Train + Test
