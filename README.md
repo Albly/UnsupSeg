@@ -20,7 +20,8 @@ The main contributions include:
 3. We improved the performance of the model by experimenting with different loss-functions.
 4. We show that the model's performance is improved by applying a windowed Fast Fourier Transform over the audio samples. 
 5. We performed clusterization of the phonemes on the TIMIT dataset.
-
+6. 
+## Main Contributions (links)
 1. We replicated the originally proposed model on the TIMIT dataset and profiled the performance.(see `Metrics for Task 1` section [here]([Experiments_ntbk]) and `Main for Training` section [here]([Report_ntbk]))
 2. We analysed the TIMIT-trained model's performance on 'Arabic Speech Corpus', which is an out-of-domain dataset (see `Metrics for Task 2` section [here]([Experiments_ntbk])).
 3. We improved the performance of the model by experimenting with different loss-functions (see `Metrics for Task 3` [here]([Experiments_ntbk])).
@@ -51,17 +52,17 @@ Report.ipynb - consists of subblocks for different tasks:
 10. TIMIT data set parser
 11. Threshold-based algorithm for outliers detecting and comparison of real and predicted boundaries distributions
 
-config.yaml - contains model hyperparameters and other parameters like paths to train/test folders etc.
+[`config.yaml`](https://github.com/Albly/UnsupSeg/blob/master/config.yaml) - contains model hyperparameters and other parameters like paths to train/test folders etc.
 
-dataloader.py - is responsible for data reading from datasets in the appropriate format
+[`dataloader.py`](https://github.com/Albly/UnsupSeg/blob/master/dataloader.py) - is responsible for data reading from datasets in the appropriate format.
 
-predict.py - to make a prediction on a single audio file and to save real boundaries and scores into hdf5 files
+[`predict.py`](https://github.com/Albly/UnsupSeg/blob/master/predict.py) - to make a prediction on a single audio file and to save real boundaries and scores into hdf5 files.
 
-solver.py - solver for the model and its functions (forward, optimizer, building the model etc.)
+[`solver.py`](https://github.com/Albly/UnsupSeg/blob/master/solver.py) - solver for the model and its functions (forward, optimizer, building the model etc.).
 
-utils.py - some functions used in other scripts (metrics evaluation, peak detection etc.)
+[`utils.py`](https://github.com/Albly/UnsupSeg/blob/master/utils.py) - some functions used in other scripts (metrics evaluation, peak detection etc.).
 
-scripts folder - scripts with model training, and data preprocessing
+[`scripts folder`](https://github.com/Albly/UnsupSeg/tree/master/scripts) - scripts with model training, and data preprocessing.
 
 # Datasets description
 ## TIMIT
