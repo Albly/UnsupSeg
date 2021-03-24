@@ -27,17 +27,17 @@ class NextFrameClassifier(nn.Module):
         self.writefile = writefile
 
         #Learnable parameters (TEST 2 - loss function 2)
-        #self.w = nn.Parameter(torch.tensor([1.0], requires_grad= True).to('cuda'))
-        #self.b = nn.Parameter(torch.tensor([0.0], requires_grad= True).to('cuda'))
+        #self.w = nn.Parameter(torch.tensor([1.0], requires_grad= True).to('cuda')) # uncomment to use trainable params
+        #self.b = nn.Parameter(torch.tensor([0.0], requires_grad= True).to('cuda')) # uncomment to use trainable params
 
         Z_DIM = hp.z_dim
         LS = hp.latent_dim if hp.latent_dim != 0 else Z_DIM
 
         self.enc = nn.Sequential(
             # Calculating specgram for input audio samples (TEST 3)
-            #torchaudio.transforms.Spectrogram(n_fft=50, win_length=50),
+            #torchaudio.transforms.Spectrogram(n_fft=50, win_length=50), # uncomment to use FFT
             # perform summation alogng frequency axis
-            #SumAlong(dim= 2),
+            #SumAlong(dim= 2),                                           # uncomment to use FFT
             # CNN
             nn.Conv1d(1, LS, kernel_size=10, stride=5, padding=0, bias=False),
             nn.BatchNorm1d(LS),

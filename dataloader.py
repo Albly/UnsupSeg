@@ -46,7 +46,7 @@ def spectral_size(wav_len):
     layers = [(10,5,0), (8,4,0), (4,2,0), (4,2,0), (4,2,0)]
 
     # Spectralsize of FFT (half of the window-size) 
-    #wav_len = wav_len // 25 + 1
+    #wav_len = wav_len // 25 + 1                            # uncomment to use FFT
  
     for kernel, stride, padding in layers:
         wav_len = math.floor((wav_len + 2*padding - 1*(kernel-1) - 1)/stride + 1)
