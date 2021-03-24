@@ -24,11 +24,13 @@ OUTPUT:
     lables - labels of phonemes
 '''
 
-phonemas_path = 'Phonemas.hdf5'
-boundaries_path = 'Boundaries.hdf5'
-scores_path = 'Scores.hdf5'
-realbounds_path = 'Realbounds.hdf5'
-phoneme_symb_path = 'Phoneme_symb.hdf5'
+phonemas_path = 'data/Phonemas.hdf5'
+boundaries_path = 'data/Boundaries.hdf5'
+scores_path = 'data/Scores.hdf5'
+realbounds_path = 'data/Realbounds.hdf5'
+phoneme_symb_path = 'data/Phoneme_symb.hdf5'
+
+end_folder = 'intermediate_data/'
 
 # slice phonemes using boundaries as input. Don't consider left and right sides as phonemes
 def slice_phonemaes(phns, bnds):
@@ -163,5 +165,5 @@ X_train = np.array(z_train).reshape(-1,64)
 X_test = np.array(z_test).reshape(-1,64)
 
 #saving
-np.savez('data_for_clf', X_train = X_train, X_test = X_test,  y_test = y_test, labels = labels )
-print('data_for_clf.npz has generated')
+np.savez(end_folder+'data_for_clf', X_train = X_train, X_test = X_test,  y_test = y_test, labels = labels )
+print(end_folder+'data_for_clf.npz has generated')

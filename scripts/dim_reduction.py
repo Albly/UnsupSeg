@@ -24,11 +24,13 @@ OUTPUT:
     .npz files with embedings and true labels for both algorithms 
 '''
 
-phonemas_path = 'Phonemas.hdf5'
-boundaries_path = 'Boundaries.hdf5'
-scores_path = 'Scores.hdf5'
-realbounds_path = 'Realbounds.hdf5'
-phoneme_symb_path = 'Phoneme_symb.hdf5'
+phonemas_path = 'data/Phonemas.hdf5'
+boundaries_path = 'data/Boundaries.hdf5'
+scores_path = 'data/Scores.hdf5'
+realbounds_path = 'data/Realbounds.hdf5'
+phoneme_symb_path = 'data/Phoneme_symb.hdf5'
+
+end_folder = 'intermediate_data/'
 
 # slice phonemes using boundaries as input. Don't consider left and right sides as phonemes
 def slice_phonemaes(phns, bnds):
@@ -112,7 +114,7 @@ def UMAP_reduction(X, target):
     embedding = reducer.fit_transform(X)
 
     print("Umap successfully trained")
-    path = 'umap_'+str(2)
+    path = end_folder+'umap_'+str(2)
     np.savez(path, embedding, target)
     print(path+'.npz',' successfully generated')
 
@@ -132,7 +134,7 @@ def tSNE_reduction(X, target):
 
     print("TSNE successfully trained")
 
-    path = 'tsne_'+str(2)
+    path = end_folder+'tsne_'+str(2)
     np.savez(path, X_tsne, target)
     print(path+'.npz',' successfully generated')
 

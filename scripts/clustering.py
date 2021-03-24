@@ -32,10 +32,10 @@ OUTPUT:
 
 '''
 
-phonemas_path = 'Phonemas.hdf5'
-boundaries_path = 'Boundaries.hdf5'
-scores_path = 'Scores.hdf5'
-
+phonemas_path = 'data/Phonemas.hdf5'
+boundaries_path = 'data/Boundaries.hdf5'
+scores_path = 'data/Scores.hdf5'
+end_folder = 'intermediate_data/'
 
 def read_data():
     '''
@@ -108,7 +108,7 @@ def train_with_grid(grid,X,i):
         sil_scores.append(silhouette)
         n_clust.append(param['n_clusters'])
 
-    np.savez(param['method']+str(i), np.array(sil_scores), np.array(n_clust))
+    np.savez(end_folder+param['method']+str(i), np.array(sil_scores), np.array(n_clust))
 
 random_seed = 0
 
