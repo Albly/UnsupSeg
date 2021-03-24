@@ -1,7 +1,7 @@
-[Experiments_ntbk]: https://github.com/Albly/UnsupSeg/blob/master/Experiments_results.ipynb 
-[Report_ntbk]: https://github.com/Albly/UnsupSeg/blob/master/Report.ipynb
-[Original_paper_GH]: https://github.com/felixkreuk/UnsupSeg
-[Original_paper]: https://arxiv.org/abs/2007.13465
+[Experiments_ntbk]:https://github.com/Albly/UnsupSeg/blob/master/Experiments_results.ipynb 
+[Report_ntbk]:https://github.com/Albly/UnsupSeg/blob/master/Report.ipynb
+[Original_paper_GH]:https://github.com/felixkreuk/UnsupSeg
+[Original_paper]:https://arxiv.org/abs/2007.13465
 
 # Self-Supervised Contrastive Learning for Unsupervised Phoneme Segmentation. ML course project, Skoltech.
 ## General Description
@@ -15,18 +15,11 @@ The files with the code were taken from the author's GitHub and some of them wer
 
 ## Main Contributions
 The main contributions include:
-1. We replicated the originally proposed model on the TIMIT dataset and profiled the performance.
-2. We analysed the TIMIT-trained model's performance on 'Arabic Speech Corpus', which is an out-of-domain dataset. 
-3. We improved the performance of the model by experimenting with different loss-functions.
-4. We show that the model's performance is improved by applying a windowed Fast Fourier Transform over the audio samples. 
-5. We performed clusterization of the phonemes on the TIMIT dataset.
-6. 
-## Main Contributions (links)
-1. We replicated the originally proposed model on the TIMIT dataset and profiled the performance.(see `Metrics for Task 1` section [here]([Experiments_ntbk]) and `Main for Training` section [here]([Report_ntbk]))
-2. We analysed the TIMIT-trained model's performance on 'Arabic Speech Corpus', which is an out-of-domain dataset (see `Metrics for Task 2` section [here]([Experiments_ntbk])).
-3. We improved the performance of the model by experimenting with different loss-functions (see `Metrics for Task 3` [here]([Experiments_ntbk])).
+1. We replicated the originally proposed model on the TIMIT dataset and profiled the performance.(see `Metrics for Task 1` section [here](https://github.com/Albly/UnsupSeg/blob/master/Experiments_results.ipynb ) and `Main for Training` section [here](https://github.com/Albly/UnsupSeg/blob/master/Report.ipynb))
+2. We analysed the TIMIT-trained model's performance on 'Arabic Speech Corpus', which is an out-of-domain dataset (see `Metrics for Task 2` section [here](https://github.com/Albly/UnsupSeg/blob/master/Experiments_results.ipynb )).
+3. We improved the performance of the model by experimenting with different loss-functions (see `Metrics for Task 3` [here](https://github.com/Albly/UnsupSeg/blob/master/Experiments_results.ipynb )).
 4. We show that the model's performance is improved by applying a windowed Fast Fourier Transform over the audio samples (see lines [34 - 37 here](https://github.com/Albly/UnsupSeg/blob/master/next_frame_classifier.py)). 
-5. We performed clusterization of the phonemes on the TIMIT dataset (see `Saving test results: phonemas, boundaries...` [here]([Report_ntbk])).
+5. We performed clusterization of the phonemes on the TIMIT dataset (see `Saving test results: phonemas, boundaries...` [here](https://github.com/Albly/UnsupSeg/blob/master/Report.ipynb)).
 
 # Within the framework of this work we had the following tasks:
 1. Replicate the results on one of the datasets.
@@ -39,18 +32,18 @@ The main contributions include:
 Experiments_results.ipynb - consists of experiments results (train/test metrics, their averaging and plotting)
 You don't have to execute cells in this file. Just obtain the results.
 
-Report.ipynb - consists of subblocks for different tasks:
-1. Dataloaders testing (for TIMIT, ArabicSpeech datasets)
-2. Saving real bounds and phoneme labels into hdf5 file (for TIMIT)
-3. Test pre-trained model on a single audio file from the test data set
-5. Train model on a train data set, test on a pre-trained model
+[`Report.ipynb`](https://github.com/Albly/UnsupSeg/blob/master/Report.ipynb) - consists of subblocks for different tasks:
+1. Dataloaders testing (for TIMIT, ArabicSpeech datasets).
+2. Saving real bounds and phoneme labels into hdf5 file (for TIMIT).
+3. Test pre-trained model on a single audio file from the test data set.
+5. Train model on a train data set, test on a pre-trained model.
 7. Test data saving (for convenient following processing, HDF5 files):
-    - from the network: spectral representations of audio, scores, predicted boundaries of phonemes
-    - from test data set: real boundaries of phonemes, phonemes characters
-8. Data reading from written files
-9. Plotting example: real boundaries of phonemes, spectral representations of audio, scores, predicted boundaries of phonemes
-10. TIMIT data set parser
-11. Threshold-based algorithm for outliers detecting and comparison of real and predicted boundaries distributions
+    - from the network: spectral representations of audio, scores, predicted boundaries of phonemes,
+    - from test data set: real boundaries of phonemes, phonemes characters.
+8. Data reading from written files.
+9. Plotting example: real boundaries of phonemes, spectral representations of audio, scores, predicted boundaries of phonemes.
+10. TIMIT data set parser.
+11. Threshold-based algorithm for outliers detecting and comparison of real and predicted boundaries distributions.
 
 [`config.yaml`](https://github.com/Albly/UnsupSeg/blob/master/config.yaml) - contains model hyperparameters and other parameters like paths to train/test folders etc.
 
@@ -66,19 +59,18 @@ Report.ipynb - consists of subblocks for different tasks:
 
 # Datasets description
 ## TIMIT
+ [TIMIT](https://deepai.org/dataset/timit) is an English language dataset containing recording of 630 speakers with 8 differents dialects (DR1, DR2, ..., DR8) of American English. In the recordings, each individual has 10 sentences that are rich in phonetics, making it a great dataset for phoneme segmentation. It has an audio sampling frequency = 16kHz and has standardized train/test split (2 folders: TRAIN, TEST). 
 
-[TIMIT](https://deepai.org/dataset/timit) is an English language dataset with size of ~ 1.3Gb
-Audio sampling frequency = 16kHz
-It has a standard train/test split (2 folders: TRAIN, TEST)
-`Data Preparation:` the code uses the standard train/test split provided in the TIMIT dataset. All train samples from all dialect regions (DR1, DR2,...,DR8) are placed in one folder. A Randomly sampled 10% set of this combined train data is used for validation during training. 
-Files: 4158 - training, 462 - validation, 1680 - testing.
+Our code uses this standard train/test split provided in the TIMIT dataset. All train samples from all dialect regions (DR1, DR2,...,DR8) are placed in one folder. A randomly sampled 10% set of this combined train data is used for validation during training resulting in: 
+- 4158 files for training, 
+- 462 files for  validation and
+- 1680 for testing.
+
 For project audio data (.wav) and phonemes data (.PHN) is required.
-Each PHN file contains the start sample, end sample of phoneme and phoneme symbols.
-
-Example: 9640 11240 sh, where 9640 - start,11240 - end,sh - phoneme
-
+Each .PHN file contains start sample, end sample of phoneme and phoneme symbols.
+Example: 9640 11240 sh, where 9640-start,11240-end,sh-phoneme
 To process original dataset and extract (.wav) and (.PHN) files into their respective train-test folders, a processing script was written (see `big_timit_parser()` in `Report.ipynb`).
-In the algorithm to process files, the initial data loader and code processing function [written by the original paper authors](https://github.com/felixkreuk/UnsupSeg) was used.
+In the algorithm to process files, initial dataloader and code processing function [written by the original paper authors](https://arxiv.org/abs/2007.13465) was used as reference.
 
 ## Arabic Speech Corpus
 
@@ -160,10 +152,10 @@ timit (same for Arabic Speech Corpus: arabic)
 ```
 # How to reproduce results?
 1. Implement pre requirements: setup environment, prepare the data, organise folder structure
-2. Open Report.ipynb
-3. First of all - to be ensure that data loaders are working and read the dataset in appropriate format (the result of cell execution should be the same)
-4. The second find "Test on single audio" and try it. You will obtain results.
-5. The third find "Main for training and testing". Run it. Don't forget to edit config.yaml to set up hyperparameters and to set the mode (train/test). For the train ckpt: - relative path to the model. For the test ckpt: null. Also, choose the dataset folder (data) from the datasets you have and correct paths to them.
-6. Obtain the training/testing prsedure.
-7. To obtain examples of data from the core of the network you can find "Plot example of data: spectral reprezentation, score and boundaries"
-8. To implement outliers detecting based on duration threshold, run cells "Outliers detecting (by phoneme duration)"
+2. Open `Report.ipynb`
+3. First of all - to be sure that data loaders are working and read the dataset in appropriate format (the result of cell execution should be the same)
+4. The second find `Test on single audio` in [`Report.ipynb`](https://github.com/Albly/UnsupSeg/blob/master/Report.ipynb) and try running the code under it and obtain results
+5. The third find `Main for training and testing` in [`Report.ipynb`](https://github.com/Albly/UnsupSeg/blob/master/Report.ipynb)  and run the corresponding cells. Don't forget to edit config.yaml to set up hyperparameters and to set the mode (train/test). For the train ckpt: - relative path to the model. For the test ckpt: null. Also, choose the dataset folder (data) from the datasets you have and correct paths to them.
+6. Obtain the training/testing procedure.
+7. To obtain examples of data from the core of the network you can use the code under `Plot example of data: spectral reprezentation, score and boundaries` in [`Report.ipynb`](https://github.com/Albly/UnsupSeg/blob/master/Report.ipynb)
+8. To implement outliers detecting based on duration threshold, run cells under `Outliers detecting (by phoneme duration)` in [`Report.ipynb`](https://github.com/Albly/UnsupSeg/blob/master/Report.ipynb)
