@@ -1,13 +1,12 @@
 hydra:
   run:
       dir: ${now:%Y-%m-%d_%H-%M-%S}-${exp_name}
-#     dir: data/runs/unsupervised_segmentor/${now:%Y-%m-%d_%H-%M-%S}-${exp_name}
 
 # DATA
 libri_path: data/datasets/librispeech
 buckeye_path: data/datasets/buckeye
-timit_path: data/datasets/timit_big
-arabic_path: data/felix/datasets/arabic
+timit_path: data/datasets/timit
+arabic_path: data/datasets/arabic
 libri_subset: train-clean-100
 libri_percent: 1.0
 buckeye_percent: 1.0
@@ -36,8 +35,10 @@ gpus: 1
 tag: default
 exp_name: default
 project: unsupervised_segmentor
-# ckpt: /home/stas/ML_project/Trained/epoch=48.ckpt
-ckpt: /home/alex/mlCourse/project/epoch=37.ckpt
+
+# ckpt: data/Trained/epoch=48.ckpt # for testing
+ckpt: null # for training
+
 dev_run: false  # fast debug run
 val_check_interval: 0.2  # how often a validation epoch is run
 overfit_pct: 1

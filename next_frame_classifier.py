@@ -32,7 +32,7 @@ class NextFrameClassifier(nn.Module):
             # perform summation alogng frequency axis
             #SumAlong(dim= 2),
             # CNN
-            nn.Conv1d(1, LS, kernel_size=10, stride=5, paddingf=0, bias=False),
+            nn.Conv1d(1, LS, kernel_size=10, stride=5, padding=0, bias=False),
             nn.BatchNorm1d(LS),
             nn.LeakyReLU(),
             nn.Conv1d(LS, LS, kernel_size=8, stride=4, padding=0, bias=False),
@@ -91,23 +91,16 @@ class NextFrameClassifier(nn.Module):
     def forward(self, spect):
         # get device type
         device = spect.device
-        print(device)
+#         print(device)
         
         # input - batch of audio normalized by the longest
         # spect - torch.Size([batch size, samples])
         # wav => latent z
         z = self.enc(spect.unsqueeze(1))
         
-        # save "spectrograms"
-#         with h5py.File('Spectrum.hdf5', 'a') as f:
-#             length = len(f.keys())
-#             for i in range(z.shape[0]):
-#                 f.create_dataset('tenzor_'+str(i + length), data = z[i,:,:].cpu())
-#             f.close()
-        
         # if cpu => we test data on a single file
         if self.writefile == True:
-            with h5py.File('Phonemas.hdf5', 'a') as f:
+            with h5py.File('data/Phonemas.hdf5', 'a') as f:
                 length = len(f.keys())
                 for i in range(z.shape[0]):
                     f.create_dataset('phoneme_'+str(i + length), data = self.get_array(z[i,:,:].T,device))

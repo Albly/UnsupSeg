@@ -1,7 +1,7 @@
 # Our changes:
-# data loading procedure for Arabic Speech Corpus was implemented (lines 78-83)
-# additional information printing was added (lines 65-68,73-77)
-# additional parameter "writefile" into Solver clas was added (it is responsible foor data saving into hdf5)
+# data loading procedure for Arabic Speech Corpus was implemented
+# additional information printing was added
+# additional parameter "writefile" into Solver clas was added
 
 import glob
 from collections import OrderedDict, defaultdict

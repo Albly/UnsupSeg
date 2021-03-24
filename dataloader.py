@@ -1,3 +1,6 @@
+# additional libraries were added (textgrid)
+# process_file function was modified for new dataset reading, buckeye readeng were changed
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F

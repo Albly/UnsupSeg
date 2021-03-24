@@ -1,6 +1,6 @@
-# additional libraries were added (lines 11-12)
-# code for hdf5 files creating was added (lines 45-51,70-75)
-# additional information printing was added (lines 45-51,70-75)
+# additional libraries were added (h5py)
+# code for hdf5 files creating was added
+# additional information printing was added
 
 import argparse
 import dill
@@ -10,7 +10,6 @@ import torchaudio
 from utils import (detect_peaks, max_min_norm, replicate_first_k_frames)
 from next_frame_classifier import NextFrameClassifier
 
-import matplotlib.pyplot as plt
 import h5py
 
 def main(wav, ckpt, prominence, writefile = False):
@@ -43,14 +42,9 @@ def main(wav, ckpt, prominence, writefile = False):
     preds = replicate_first_k_frames(preds, k=0, dim=1)  # padding
     preds = 1 - max_min_norm(preds)  # normalize scores (good for visualizations)
     
-#     plt.figure(figsize=(20,3))
-#     plt.title('Predict function')
-#     plt.plot(preds[0,:].detach().numpy())
-#     plt.xlim([0,len(preds[0,:])])
-    
     # premissions for file writng
     if writefile == True:
-        with h5py.File('Scores.hdf5', 'a') as f:
+        with h5py.File('data/Scores.hdf5', 'a') as f:
             length = len(f.keys())
             for i in range(1):
                 f.create_dataset('scores_'+str(i + length), data = preds[0,:].detach().numpy())
@@ -74,7 +68,7 @@ def main(wav, ckpt, prominence, writefile = False):
 
     # premissions for file writng
     if writefile == True:
-        with h5py.File('Boundaries.hdf5', 'a') as f:
+        with h5py.File('data/Boundaries.hdf5', 'a') as f:
             length = len(f.keys())
             for i in range(1):
                 f.create_dataset('bounds_'+str(i + length), data = preds[0])
