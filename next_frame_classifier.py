@@ -3,6 +3,9 @@
 # fast fourier transform was added (uncomment lines)
 # 2 additional loss functions were added (uncomment lines)
 
+# for using trainable parameters uncomment 30-31 lines
+# for using FFT uncomment 38, 40 lines here and 49 in dataloader.py
+
 import matplotlib.pyplot as plt
 import numpy as np
 import torch

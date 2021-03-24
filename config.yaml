@@ -60,8 +60,3 @@ batch_size: 8
 wd: None
 host: None
 
-# 0 - without changes
-# 1 - learnable parameters mode
-# 2 - FFT mode
-
-training_mode: 0
