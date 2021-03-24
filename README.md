@@ -18,6 +18,7 @@ The main contributions include:
 
 ## Files and folders description
 Experiments_results.ipynb - consists of experiments results (train/test metrics, their averaging and plotting)
+You don't have to execute cells in this file. Just obtain the results.
 
 Report.ipynb - consists of subblocks for different tasks:
 1. Dataloaders testing (for TIMIT, ArabicSpeech datasets)
@@ -137,13 +138,10 @@ timit (same for Arabic Speech Corpus: arabic)
       │   Z.wav
       └─  Z.phn
 ```
-
-# DATA
-timit_path /path/to/timit/timit
-### Train + Test
-
-how to start train and test
-
-### Test on a single audio file
-
-how to start test on a single audio file
+# How to reproduce results?
+# Implement pre requirements: setup environment, prepare the data, organise folder structure
+# Open Report.ipynb
+# First of all - to be ensure that data loaders are working and read the dataset in appropriate format (the result of cell execution should be the same)
+# The second find "Test on single audio" and try it. You will obtain results.
+# The third find "Main for training and testing". Run it. Don't forget to edit config.yaml to set up hyperparameters and to set the mode (train/test). For the train ckpt: - relative path to the model. For the test ckpt: null. Also, choose the dataset folder (data) from the datasets you have and correct paths to them.
+# Obtain the training/testing prsedure.
