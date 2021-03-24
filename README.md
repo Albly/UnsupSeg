@@ -159,3 +159,5 @@ timit (same for Arabic Speech Corpus: arabic)
 6. Obtain the training/testing procedure.
 7. To obtain examples of data from the core of the network you can use the code under `Plot example of data: spectral reprezentation, score and boundaries` in [`Report.ipynb`](https://github.com/Albly/UnsupSeg/blob/master/Report.ipynb)
 8. To implement outliers detecting based on duration threshold, run cells under `Outliers detecting (by phoneme duration)` in [`Report.ipynb`](https://github.com/Albly/UnsupSeg/blob/master/Report.ipynb)
+
+## More more detailed information is in the descriptions and comments of each file
