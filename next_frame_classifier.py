@@ -32,7 +32,7 @@ class NextFrameClassifier(nn.Module):
             # perform summation alogng frequency axis
             #SumAlong(dim= 2),
             # CNN
-            nn.Conv1d(1, LS, kernel_size=10, stride=5, paddingf=0, bias=False),
+            nn.Conv1d(1, LS, kernel_size=10, stride=5, padding=0, bias=False),
             nn.BatchNorm1d(LS),
             nn.LeakyReLU(),
             nn.Conv1d(LS, LS, kernel_size=8, stride=4, padding=0, bias=False),
