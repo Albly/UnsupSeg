@@ -1,3 +1,8 @@
+[Experiments_ntbk]: https://github.com/Albly/UnsupSeg/blob/master/Experiments_results.ipynb 
+[Report_ntbk]: https://github.com/Albly/UnsupSeg/blob/master/Report.ipynb
+[Original_paper_GH]: https://github.com/felixkreuk/UnsupSeg
+[Original_paper]: https://arxiv.org/abs/2007.13465
+
 # Self-Supervised Contrastive Learning for Unsupervised Phoneme Segmentation. ML course project, Skoltech.
 ## General Description
 This repository is an unofficial `Python` replication and implementation of the paper ["Self-Supervised Con-trastive Learning for Unsupervised Phoneme Segmentation(Kreuk et al., 2020)](https://arxiv.org/abs/2007.13465). 
@@ -15,6 +20,12 @@ The main contributions include:
 3. We improved the performance of the model by experimenting with different loss-functions.
 4. We show that the model's performance is improved by applying a windowed Fast Fourier Transform over the audio samples. 
 5. We performed clusterization of the phonemes on the TIMIT dataset.
+
+1. We replicated the originally proposed model on the TIMIT dataset and profiled the performance.(see `Metrics for Task 1` section [here]([Experiments_ntbk]) and `Main for Training` section [here]([Report_ntbk]))
+2. We analysed the TIMIT-trained model's performance on 'Arabic Speech Corpus', which is an out-of-domain dataset (see `Metrics for Task 2` section [here]([Experiments_ntbk])).
+3. We improved the performance of the model by experimenting with different loss-functions (see `Metrics for Task 3` [here]([Experiments_ntbk])).
+4. We show that the model's performance is improved by applying a windowed Fast Fourier Transform over the audio samples (see lines [34 - 37 here](https://github.com/Albly/UnsupSeg/blob/master/next_frame_classifier.py)). 
+5. We performed clusterization of the phonemes on the TIMIT dataset (see `Saving test results: phonemas, boundaries...` [here]([Report_ntbk])).
 
 # Within the framework of this work we had the following tasks:
 1. Replicate the results on one of the datasets.
