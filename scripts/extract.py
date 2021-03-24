@@ -19,7 +19,7 @@ OUTPUT:
     Plot with curves n_clusters vs Silhouette 
 '''
 
-folder = ''
+folder = 'intermediate_data/'
 
 def plt_averaged(algorithms,batches):
     results = []
