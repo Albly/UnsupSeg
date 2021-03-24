@@ -53,9 +53,15 @@ momentum: 0.9
 lr: 0.0001
 lr_anneal_gamma: 1.0
 lr_anneal_step: 1000
-epochs: 50
+epochs: 1
 grad_clip: 0.5
 batch_size: 8
 
 wd: None
 host: None
+
+# 0 - without changes
+# 1 - learnable parameters mode
+# 2 - FFT mode
+
+training_mode: 0
