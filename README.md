@@ -43,7 +43,7 @@ solver.py - solver for the model and its functions (forward, optimizer, building
 
 utils.py - some functions used in other scripts (metrics evaluation, peak detection etc.)
 
-scripts folder - 
+scripts folder - scripts with model training, and data preprocessing
 
 # Datasets description
 ## TIMIT
@@ -117,8 +117,8 @@ For each datased folder should look as follows:
 UndupSeg
 │
 │
-data + intermediate_data + utils.py, solver.py, predict.py, dataloader.py, config.yaml, Report.ipynb,Experiments_results.ipynb
-│
+data + intermediate_data, utils.py, solver.py, predict.py,
+│      dataloader.py, config.yaml, Report.ipynb,Experiments_results.ipynb
 │
 datasets
 │
@@ -127,8 +127,8 @@ timit (same for Arabic Speech Corpus: arabic)
 │
 │
  └───val
-  │   │   X.wav
-  │   └─  X.phn
+  │   │   X.wav (or X.WAW)
+  │   └─  X.phn (or X.TextGrid)
   │
   └───test
   │   │   Y.wav
@@ -145,3 +145,5 @@ timit (same for Arabic Speech Corpus: arabic)
 4. The second find "Test on single audio" and try it. You will obtain results.
 5. The third find "Main for training and testing". Run it. Don't forget to edit config.yaml to set up hyperparameters and to set the mode (train/test). For the train ckpt: - relative path to the model. For the test ckpt: null. Also, choose the dataset folder (data) from the datasets you have and correct paths to them.
 6. Obtain the training/testing prsedure.
+7. To obtain examples of data from the core of the network you can find "Plot example of data: spectral reprezentation, score and boundaries"
+8. To implement outliers detecting based on duration threshold, run cells "Outliers detecting (by phoneme duration)"
