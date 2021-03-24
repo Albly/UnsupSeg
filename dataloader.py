@@ -1,5 +1,6 @@
 # additional libraries were added (textgrid)
 # process_file function was modified for new dataset reading, buckeye readeng were changed
+# spectral_size function was changed. Uncommelt commented lines to use FFT
 
 import torch
 import torch.nn as nn

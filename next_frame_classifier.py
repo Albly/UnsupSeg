@@ -1,3 +1,8 @@
+# additional libraries were added (h5py)
+# code for hdf5 files creating was added
+# fast fourier transform was added (uncomment lines)
+# 2 additional loss functions were added (uncomment lines)
+
 import matplotlib.pyplot as plt
 import numpy as np
 import torch
@@ -10,7 +15,6 @@ from dataloader import TrainTestDataset
 from collections import defaultdict
 from utils import (detect_peaks, max_min_norm, replicate_first_k_frames)
 
-
 import h5py # for data extraction
 
 class NextFrameClassifier(nn.Module):
@@ -19,7 +23,7 @@ class NextFrameClassifier(nn.Module):
         self.hp = hp
         self.writefile = writefile
 
-        #Learnable parameters (TEST 2)
+        #Learnable parameters (TEST 2 - loss function 2)
         #self.w = nn.Parameter(torch.tensor([1.0], requires_grad= True).to('cuda'))
         #self.b = nn.Parameter(torch.tensor([0.0], requires_grad= True).to('cuda'))
 
@@ -73,9 +77,9 @@ class NextFrameClassifier(nn.Module):
         self.pred_steps = list(range(1 + self.hp.pred_offset, 1 + self.hp.pred_offset + self.hp.pred_steps))
         print(f"prediction steps: {self.pred_steps}")
 
-# 1st loss - function
-#     def score(self, f, b):
-#         return F.cosine_similarity(f, b, dim=-1) * self.hp.cosine_coef
+    # 1st loss - function
+    #     def score(self, f, b):
+    #         return F.cosine_similarity(f, b, dim=-1) * self.hp.cosine_coef
     
     def score(self, f, b):
         c = 1/(F.cosine_similarity(f, b, dim=-1)+0.01)

@@ -2,6 +2,7 @@
 # data loading procedure for Arabic Speech Corpus was implemented
 # additional information printing was added
 # additional parameter "writefile" into Solver clas was added
+# learnable parameter monitoring for wandb was added (uncomment lines)
 
 import glob
 from collections import OrderedDict, defaultdict

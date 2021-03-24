@@ -1,7 +1,12 @@
-/data/datasets/arabic/**
-/data/datasets/buckeye/**
-/data/datasets/timit_big/**
+/data/**
 /Test_results/**
 /Trained/**
+/lightning_logs/**
 /.ipynb_checkpoints/**
 /wandb/**
+/.gitignore
+/*.hdf5
+/*.pdf
+
+/__pycache__/**
+/scripts/.ipynb_checkpoints/**

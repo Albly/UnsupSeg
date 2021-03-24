@@ -74,4 +74,4 @@ def main(wav, ckpt, prominence, writefile = False):
                 f.create_dataset('bounds_'+str(i + length), data = preds[0])
             f.close()
         
-    return preds_seconds, preds_pixels, 
+    return preds_seconds, preds_pixels

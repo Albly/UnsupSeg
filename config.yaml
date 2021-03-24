@@ -3,17 +3,17 @@ hydra:
       dir: ${now:%Y-%m-%d_%H-%M-%S}-${exp_name}
 
 # DATA
-libri_path: data/datasets/librispeech
-buckeye_path: data/datasets/buckeye
-timit_path: data/datasets/timit
-arabic_path: data/datasets/arabic
-libri_subset: train-clean-100
+libri_path: data/datasets/librispeech # path to librispeech dataset
+buckeye_path: data/datasets/buckeye  # path to buckeye dataset
+timit_path: data/datasets/timit  # path to timit dataset
+arabic_path: data/datasets/arabic  # path to arabic dataset
+libri_subset: train-clean-100 # subset from librispeech
 libri_percent: 1.0
 buckeye_percent: 1.0
 val_ratio: 0.1  # ratio of validation set
 
+# choose data for training
 data: timit
-# data: buckeye
 # data: arabic
 
 dataloader_n_workers: 10
@@ -31,11 +31,12 @@ latent_dim: 0  # latent dimension of encoder
 n_negatives: 3  # number of negative samples for contrastive loss
 
 # MISC
-gpus: 1 
-tag: default
-exp_name: default
-project: unsupervised_segmentor
+gpus: 1 # for wandb
+tag: default # for wandb
+exp_name: default # for wandb
+project: unsupervised_segmentor # for wandb
 
+# uncomment one of two lines below to choose mode
 # ckpt: data/Trained/epoch=48.ckpt # for testing
 ckpt: null # for training
 
