@@ -16,6 +16,13 @@ The main contributions include:
 4. We show that the model's performance is improved by applying a windowed Fast Fourier Transform over the audio samples. 
 5. We performed clusterization of the phonemes on the TIMIT dataset.
 
+# Within the framework of this work we had the following tasks:
+1. Replicate the results on one of the datasets.
+2. Analyze performance on out of the domain test set.
+3. Propose and implement improvements for the loss function
+4. Try to find a number of unique phonemes
+5. Try to extend to unsupervised phoneme classification
+
 ## Files and folders description
 Experiments_results.ipynb - consists of experiments results (train/test metrics, their averaging and plotting)
 You don't have to execute cells in this file. Just obtain the results.
@@ -79,7 +86,7 @@ git clone https://github.com/Albly/UnsupSeg.git
 cd UnsupSeg
 ```
 # Download data folder
-https://drive.google.com/file/d/17jcRiGfNwzqUcY9c-VmutNa2LrO4PBlf/view?usp=sharing
+https://drive.google.com/file/d/1EicsBqFk_qIWg3v8iDAr1yAO1w3CmAek/view?usp=sharing
 
 This folder contains 2 data sets and hdf5 files written on the TIMIT data set
 
